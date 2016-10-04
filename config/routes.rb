@@ -53,4 +53,16 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  resources :users, only: [:index, :create, :destroy, :show, :update] do
+    resources :contacts, only: [:index]
+    resources :comments, only: [:index, :create, :destroy]
+  end
+  resources :contacts, only: [:create, :destroy, :show, :update] do
+    resources :comments, only: [:index, :create, :destroy]
+  end
+  resources :contact_shares, only: [:create, :destroy] do
+    resources :comments, only: [:index, :create, :destroy]
+  end
+
 end
